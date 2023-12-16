@@ -11,16 +11,16 @@ struct cmd_results *output_cmd_adaptive_sync(int argc, char **argv) {
 		return cmd_results_new(CMD_INVALID, "Missing adaptive_sync argument");
 	}
 	
-	int current_value = 1;
+	bool current_value = true;
 	
-	if(strcmp(argv[0], "toggle") == 0) {
+	if (strcmp(argv[0], "toggle") == 0) {
 		struct output_config *oc = config->handler_context.output_config;
 		struct sway_output *sway_output = all_output_by_name_or_id(oc->name);
 		if (sway_output == NULL) {
 			return cmd_results_new(CMD_FAILURE,
 				"Cannot apply toggle to unknown output %s", oc->name);
 		}
-		oc = find_output_config(sway_output);
+		oc = sway_output->wlr_output->adaptive_sync_status;
 		
 		current_value = !oc || oc->adaptive_sync;
 		
