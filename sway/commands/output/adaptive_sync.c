@@ -10,7 +10,7 @@ struct cmd_results *output_cmd_adaptive_sync(int argc, char **argv) {
     if (argc == 0) {
         return cmd_results_new(CMD_INVALID, "Missing adaptive_sync argument");
     }
-    
+
     bool current_value = true;
     
     if (strcmp(argv[0], "toggle") == 0) {
